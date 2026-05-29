@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Cloth Luxury</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        body {
+            background: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=80') center/cover no-repeat fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: -1;
+        }
+        .auth-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            z-index: 1;
+        }
+        .auth-box {
+            background: var(--clr-surface-glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--clr-border);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .auth-header .logo {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        .auth-link {
+            color: var(--clr-accent);
+            text-decoration: underline;
+        }
+        .auth-btn {
+            width: 100%;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* Password Strength */
+        .pwd-strength {
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            margin-top: 10px;
+            overflow: hidden;
+            display: flex;
+        }
+        .pwd-strength div {
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s, background 0.3s;
+        }
+        .pwd-text {
+            font-size: 0.8rem;
+            color: var(--clr-text-muted);
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" style="position: absolute; top: 30px; left: 30px; color: #fff; font-size: 1.5rem; z-index: 10;">
+        <i class="ph ph-arrow-left"></i>
+    </a>
+
+    <div class="auth-container">
+        <div class="auth-box">
+            <div class="auth-header">
+                <a href="index.html" class="logo">Cloth<span>.</span></a>
+                <h2 class="title-serif">Create Account</h2>
+                <p class="text-muted">Join the exclusive world of luxury fashion.</p>
+            </div>
+
+            <form id="register-form" onsubmit="event.preventDefault(); authRegister();">
+                <div class="form-group">
+                    <input type="text" id="reg-name" class="form-input" placeholder=" " required>
+                    <label class="form-label">Full Name</label>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="reg-email" class="form-input" placeholder=" " required>
+                    <label class="form-label">Email Address</label>
+                </div>
+                <div class="form-group" style="margin-bottom: 0.5rem;">
+                    <input type="password" id="reg-pwd" class="form-input" placeholder=" " required oninput="checkPasswordStrength(this.value)">
+                    <label class="form-label">Password</label>
+                </div>
+                
+                <div class="pwd-strength" id="pwd-meter">
+                    <div id="pwd-fill"></div>
+                </div>
+                <div class="pwd-text" id="pwd-text">Strength</div>
+                
+                <div class="form-group" style="margin-top: 1.5rem;">
+                    <input type="password" id="reg-pwd-confirm" class="form-input" placeholder=" " required>
+                    <label class="form-label">Confirm Password</label>
+                </div>
+
+                <button type="submit" class="btn btn-accent auth-btn">Create Account</button>
+                
+                <p class="text-center mt-3 text-muted" style="margin-top: 1.5rem;">
+                    Already have an account? <a href="login.html" class="auth-link">Sign in</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="js/store.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

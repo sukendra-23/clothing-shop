@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | Cloth Luxury</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .cart-section {
+            padding-top: calc(var(--space-xl) + 80px);
+            min-height: 80vh;
+        }
+        
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* Cart Items */
+        .cart-items-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .cart-item {
+            display: flex;
+            gap: 1.5rem;
+            background: var(--clr-surface);
+            border: 1px solid var(--clr-border);
+            padding: 1.5rem;
+            border-radius: 12px;
+            position: relative;
+        }
+        .cart-item-img {
+            width: 120px;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .cart-item-info {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .cart-item-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .cart-item-price {
+            font-size: 1.1rem;
+            color: var(--clr-accent);
+            margin-bottom: 1rem;
+        }
+        .cart-qty {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.05);
+            padding: 5px;
+            border-radius: 30px;
+            width: max-content;
+        }
+        .cart-qty button {
+            width: 30px; height: 30px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--clr-text-main);
+            transition: var(--transition);
+        }
+        .cart-qty button:hover {
+            background: var(--clr-accent);
+            color: #fff;
+        }
+        .cart-qty span {
+            font-weight: 600;
+            min-width: 20px;
+            text-align: center;
+        }
+        .remove-item-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: var(--clr-text-muted);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        .remove-item-btn:hover {
+            color: var(--clr-error);
+        }
+        .empty-cart {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--clr-surface);
+            border-radius: 12px;
+            border: 1px solid var(--clr-border);
+        }
+        .empty-cart i {
+            font-size: 4rem;
+            color: var(--clr-text-muted);
+            margin-bottom: 1rem;
+        }
+
+        /* Order Summary */
+        .order-summary {
+            background: var(--clr-surface-glass);
+            backdrop-filter: var(--blur-glass);
+            border: 1px solid var(--clr-border);
+            padding: 2rem;
+            border-radius: 12px;
+            position: sticky;
+            top: 100px;
+        }
+        .summary-title {
+            font-size: 1.5rem;
+            font-family: var(--font-serif);
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--clr-border);
+            padding-bottom: 1rem;
+        }
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            color: var(--clr-text-muted);
+        }
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--clr-border);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--clr-text-main);
+        }
+        .coupon-box {
+            display: flex;
+            gap: 10px;
+            margin-top: 2rem;
+        }
+        .coupon-box input {
+            flex-grow: 1;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--clr-border);
+            color: var(--clr-text-main);
+        }
+        .coupon-box input:focus {
+            border-color: var(--clr-accent);
+        }
+        .checkout-btn {
+            width: 100%;
+            margin-top: 2rem;
+            padding: 1rem;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 992px) {
+            .cart-layout {
+                grid-template-columns: 1fr;
+            }
+            .order-summary {
+                position: static;
+            }
+        }
+        @media (max-width: 576px) {
+            .cart-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .cart-item-img {
+                width: 100%;
+                height: 250px;
+            }
+            .remove-item-btn {
+                top: 10px; right: 10px;
+            }
+            .cart-qty {
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="page-loader" class="page-loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Cloth<span>.</span></a>
+            <ul id="nav-links" class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="shop.html" class="nav-link">Shop</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="faq.html" class="nav-link">FAQ</a></li>
+            </ul>
+            <div class="nav-icons">
+                <button id="theme-toggle" class="nav-icon"><i class="ph ph-sun"></i></button>
+                <a href="login.html" id="user-btn" class="nav-icon"><i class="ph ph-user"></i></a>
+                <a href="wishlist.html" class="nav-icon">
+                    <i class="ph ph-heart"></i>
+                    <span id="wishlist-count" class="badge" style="display:none;">0</span>
+                </a>
+                <a href="cart.html" class="nav-icon active">
+                    <i class="ph ph-shopping-bag"></i>
+                    <span id="cart-count" class="badge" style="display:none;">0</span>
+                </a>
+                <button id="mobile-menu-btn" class="mobile-menu-btn"><i class="ph ph-list"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="section cart-section">
+        <div class="container">
+            <h1 class="title-serif mb-4 text-center reveal">Your Shopping Bag</h1>
+            
+            <div class="cart-layout" id="cart-layout">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+                <p>&copy; 2026 Cloth. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>

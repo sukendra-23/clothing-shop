@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloth | Luxury Online Shopping</title>
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        /* Home Specific Styles */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+        }
+        .hero-bg img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: brightness(0.6);
+            animation: zoomIn 20s infinite alternate;
+        }
+        @keyframes zoomIn {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--clr-text-muted);
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+        }
+
+        /* Featured Collections */
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .collection-card {
+            position: relative;
+            height: 500px;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .collection-card img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+        .collection-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.8));
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            transition: background 0.4s ease;
+        }
+        .collection-card:hover img {
+            transform: scale(1.05);
+        }
+        .collection-card:hover .collection-overlay {
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.9));
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Flash Sale */
+        .flash-sale {
+            position: relative;
+            background: url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1600&q=80') center/cover fixed;
+            padding: var(--space-xl) 0;
+            text-align: center;
+        }
+        .flash-sale::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+        }
+        .flash-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .time-box {
+            background: var(--clr-surface-glass);
+            backdrop-filter: var(--blur-glass);
+            padding: 1rem;
+            border-radius: 12px;
+            min-width: 80px;
+            border: 1px solid var(--clr-border);
+        }
+        .time-val {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--clr-accent);
+            display: block;
+        }
+        .time-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Newsletter */
+        .newsletter-section {
+            background: var(--clr-surface);
+        }
+        .newsletter-box {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 2rem;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--clr-border);
+            color: var(--clr-text-main);
+        }
+        .newsletter-form input:focus {
+            border-color: var(--clr-accent);
+        }
+        
+        @media (max-width: 768px) {
+            .newsletter-form { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Loader -->
+    <div id="page-loader" class="page-loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Cloth<span>.</span></a>
+            
+            <ul id="nav-links" class="nav-links">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="shop.html" class="nav-link">Shop</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="faq.html" class="nav-link">FAQ</a></li>
+            </ul>
+
+            <div class="nav-icons">
+                <button id="theme-toggle" class="nav-icon" title="Toggle Theme">
+                    <i class="ph ph-sun"></i>
+                </button>
+                <a href="login.html" id="user-btn" class="nav-icon" title="Account">
+                    <i class="ph ph-user"></i>
+                </a>
+                <a href="wishlist.html" class="nav-icon" title="Wishlist">
+                    <i class="ph ph-heart"></i>
+                    <span id="wishlist-count" class="badge" style="display:none;">0</span>
+                </a>
+                <a href="cart.html" class="nav-icon" title="Cart">
+                    <i class="ph ph-shopping-bag"></i>
+                    <span id="cart-count" class="badge" style="display:none;">0</span>
+                </a>
+                <button id="mobile-menu-btn" class="mobile-menu-btn">
+                    <i class="ph ph-list"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&q=80" alt="Fashion Hero">
+        </div>
+        <div class="hero-content reveal">
+            <h1 class="hero-title title-serif">Define Your <span class="text-gold">Aura</span></h1>
+            <p class="hero-subtitle">Discover the new era of luxury fashion. Exquisite designs for the modern visionary.</p>
+            <div class="flex-center" style="gap: 1rem;">
+                <a href="shop.html" class="btn btn-accent">Shop Collection</a>
+                <a href="#trending" class="btn btn-outline">Explore Now</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Featured Collections -->
+    <section class="section">
+        <div class="container">
+            <div class="text-center mb-4 reveal">
+                <h2 class="title-serif mb-1">Curated Collections</h2>
+                <p class="text-muted">Handpicked styles for every occasion</p>
+            </div>
+            
+            <div class="collection-grid">
+                <a href="shop.html?category=dresses" class="collection-card reveal-left">
+                    <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80" alt="Evening Wear">
+                    <div class="collection-overlay">
+                        <h3 class="title-serif">Evening Wear</h3>
+                        <p>Elegance redefined.</p>
+                    </div>
+                </a>
+                <a href="shop.html?category=outerwear" class="collection-card reveal">
+                    <img src="https://images.unsplash.com/photo-1550614000-4b95d466f288?w=800&q=80" alt="Outerwear">
+                    <div class="collection-overlay">
+                        <h3 class="title-serif">Outerwear</h3>
+                        <p>Make a statement.</p>
+                    </div>
+                </a>
+                <a href="shop.html?category=accessories" class="collection-card reveal-right">
+                    <img src="https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=800&q=80" alt="Accessories">
+                    <div class="collection-overlay">
+                        <h3 class="title-serif">Accessories</h3>
+                        <p>The perfect finish.</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Products -->
+    <section id="trending" class="section" style="background: var(--clr-surface);">
+        <div class="container">
+            <div class="flex-between mb-4 reveal">
+                <div>
+                    <h2 class="title-serif mb-1">Trending Now</h2>
+                    <p class="text-muted">Most loved by our exclusive members</p>
+                </div>
+                <a href="shop.html" class="btn btn-outline">View All</a>
+            </div>
+            
+            <div id="trending-grid" class="products-grid">
+                <!-- Products dynamically injected here via home.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Flash Sale -->
+    <section class="flash-sale reveal">
+        <div class="container flash-content">
+            <h2 class="title-serif mb-2 text-gold">Exclusive Flash Sale</h2>
+            <p>Up to 50% off on premium selected items. Limited time offer.</p>
+            
+            <div class="countdown" id="countdown">
+                <div class="time-box">
+                    <span class="time-val" id="cd-days">00</span>
+                    <span class="time-label">Days</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-val" id="cd-hours">00</span>
+                    <span class="time-label">Hours</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-val" id="cd-mins">00</span>
+                    <span class="time-label">Mins</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-val" id="cd-secs">00</span>
+                    <span class="time-label">Secs</span>
+                </div>
+            </div>
+            
+            <a href="shop.html" class="btn btn-accent">Shop Sale</a>
+        </div>
+    </section>
+
+    <!-- Services / Features -->
+    <section class="section">
+        <div class="container">
+            <div class="collection-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); text-align: center; gap: 3rem;">
+                <div class="reveal">
+                    <i class="ph ph-truck text-gold" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <h4 class="mb-1">Complimentary Shipping</h4>
+                    <p class="text-muted">On all orders over $200</p>
+                </div>
+                <div class="reveal" style="transition-delay: 0.1s;">
+                    <i class="ph ph-arrow-counter-clockwise text-gold" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <h4 class="mb-1">Free Returns</h4>
+                    <p class="text-muted">30 days return policy</p>
+                </div>
+                <div class="reveal" style="transition-delay: 0.2s;">
+                    <i class="ph ph-shield-check text-gold" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <h4 class="mb-1">Secure Checkout</h4>
+                    <p class="text-muted">100% protected payments</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="section newsletter-section">
+        <div class="container">
+            <div class="newsletter-box glass-panel p-4 reveal" style="padding: 4rem 2rem;">
+                <h2 class="title-serif mb-1">Join The Club</h2>
+                <p class="text-muted">Subscribe for exclusive offers, early access to new collections, and fashion insights.</p>
+                <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Subscribed successfully!', 'success');">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn btn-accent">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col reveal">
+                    <a href="index.html" class="logo mb-2" style="display:block;">Cloth<span>.</span></a>
+                    <p>Redefining luxury fashion for the modern era. We create cinematic experiences through clothing.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="ph ph-instagram-logo"></i></a>
+                        <a href="#"><i class="ph ph-twitter-logo"></i></a>
+                        <a href="#"><i class="ph ph-facebook-logo"></i></a>
+                        <a href="#"><i class="ph ph-pinterest-logo"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col reveal" style="transition-delay: 0.1s;">
+                    <h4>Shop</h4>
+                    <ul class="footer-links">
+                        <li><a href="shop.html">New Arrivals</a></li>
+                        <li><a href="shop.html">Best Sellers</a></li>
+                        <li><a href="shop.html">Accessories</a></li>
+                        <li><a href="shop.html">Sale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col reveal" style="transition-delay: 0.2s;">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="faq.html">Careers</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col reveal" style="transition-delay: 0.3s;">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Track Order</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Cloth. All rights reserved.</p>
+                <div class="payment-icons">
+                    <i class="ph ph-credit-card"></i>
+                    <i class="ph ph-paypal-logo"></i>
+                    <i class="ph ph-currency-btc"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button id="backToTop" title="Back to top"><i class="ph ph-arrow-up"></i></button>
+
+    <!-- Scripts -->
+    <script src="js/products.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Home specific logic
+        document.addEventListener('DOMContentLoaded', () => {
+            // Render Trending Products
+            const trendingGrid = document.getElementById('trending-grid');
+            if(trendingGrid) {
+                // Get first 4 products for trending
+                const trendingHtml = products.slice(0, 4).map(p => generateProductCard(p)).join('');
+                trendingGrid.innerHTML = trendingHtml;
+            }
+
+            // Flash Sale Countdown Logic
+            const countDownDate = new Date().getTime() + (3 * 24 * 60 * 60 * 1000); // 3 days from now
+            
+            const x = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = countDownDate - now;
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                document.getElementById("cd-days").textContent = days.toString().padStart(2, '0');
+                document.getElementById("cd-hours").textContent = hours.toString().padStart(2, '0');
+                document.getElementById("cd-mins").textContent = minutes.toString().padStart(2, '0');
+                document.getElementById("cd-secs").textContent = seconds.toString().padStart(2, '0');
+                
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("countdown").innerHTML = "EXPIRED";
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

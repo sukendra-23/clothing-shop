@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Cloth Luxury</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .about-hero {
+            position: relative;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1;
+        }
+        .about-hero img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%);
+        }
+        .about-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 4rem;
+        }
+        .about-img {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-glass);
+        }
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .about-text p {
+            color: var(--clr-text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+            padding: 3rem;
+            background: var(--clr-surface-glass);
+            border: 1px solid var(--clr-border);
+            border-radius: 16px;
+        }
+        .stat-item h3 {
+            font-size: 3rem;
+            color: var(--clr-accent);
+            font-family: var(--font-serif);
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 992px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="page-loader" class="page-loader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav id="navbar" class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">Cloth<span>.</span></a>
+            <ul id="nav-links" class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="shop.html" class="nav-link">Shop</a></li>
+                <li><a href="about.html" class="nav-link active">About</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="faq.html" class="nav-link">FAQ</a></li>
+            </ul>
+            <div class="nav-icons">
+                <button id="theme-toggle" class="nav-icon"><i class="ph ph-sun"></i></button>
+                <a href="login.html" id="user-btn" class="nav-icon"><i class="ph ph-user"></i></a>
+                <a href="wishlist.html" class="nav-icon">
+                    <i class="ph ph-heart"></i>
+                    <span id="wishlist-count" class="badge" style="display:none;">0</span>
+                </a>
+                <a href="cart.html" class="nav-icon">
+                    <i class="ph ph-shopping-bag"></i>
+                    <span id="cart-count" class="badge" style="display:none;">0</span>
+                </a>
+                <button id="mobile-menu-btn" class="mobile-menu-btn"><i class="ph ph-list"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="about-hero">
+        <img src="https://images.unsplash.com/photo-1558769132-cb1fac08b14b?w=1920&q=80" alt="About Us">
+        <div class="about-hero-content reveal">
+            <h1 class="title-serif mb-2" style="font-size: clamp(2.5rem, 5vw, 4rem);">Our Story</h1>
+            <p class="text-muted" style="font-size: 1.2rem;">Crafting elegance, defining modern luxury.</p>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text reveal-left">
+                    <h2 class="title-serif text-gold">The Genesis of Cloth</h2>
+                    <p>Founded in 2024, Cloth emerged from a vision to redefine online luxury fashion. We believe that clothing is more than just fabric—it is an expression of identity, an aura that precedes you.</p>
+                    <p>Our collections are meticulously curated from the world's finest artisans, blending timeless craftsmanship with contemporary, cinematic design aesthetics. Every piece tells a story of elegance and bold individuality.</p>
+                    <a href="shop.html" class="btn btn-outline mt-3">Discover the Collection</a>
+                </div>
+                <div class="about-img reveal-right">
+                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80" alt="Fashion Story">
+                </div>
+            </div>
+            
+            <div class="stats-container reveal">
+                <div class="stat-item">
+                    <h3>50+</h3>
+                    <p class="text-muted uppercase" style="letter-spacing:1px; font-size:0.9rem;">Exclusive Brands</p>
+                </div>
+                <div class="stat-item">
+                    <h3>10k</h3>
+                    <p class="text-muted uppercase" style="letter-spacing:1px; font-size:0.9rem;">Global Clients</p>
+                </div>
+                <div class="stat-item">
+                    <h3>99%</h3>
+                    <p class="text-muted uppercase" style="letter-spacing:1px; font-size:0.9rem;">Satisfaction Rate</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border-top: none; padding-top: 0;">
+                <p>&copy; 2026 Cloth. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button id="backToTop" title="Back to top"><i class="ph ph-arrow-up"></i></button>
+
+    <script src="js/store.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
