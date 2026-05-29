@@ -55,6 +55,136 @@
         }
         .full-width { grid-column: 1 / -1; }
 
+        /* Static labels (visible placeholders) */
+        .form-group.static-label {
+            margin-bottom: 1.5rem;
+        }
+        .field-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--clr-text-muted);
+            margin-bottom: 0.5rem;
+        }
+        .checkout-panel .form-group.static-label .form-input {
+            color: var(--clr-text-main);
+            -webkit-text-fill-color: var(--clr-text-main);
+            caret-color: var(--clr-text-main);
+        }
+        .checkout-panel .form-group.static-label .form-input::placeholder {
+            color: var(--clr-text-muted);
+            opacity: 0.55;
+            -webkit-text-fill-color: var(--clr-text-muted);
+        }
+        .checkout-panel .form-group.static-label .form-input:focus::placeholder {
+            opacity: 0.35;
+        }
+        .field-hint {
+            display: block;
+            margin-top: 0.4rem;
+            font-size: 0.75rem;
+            color: var(--clr-text-muted);
+        }
+
+        /* UPI Apps */
+        .upi-apps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .upi-app-btn {
+            border: 1px solid var(--clr-border);
+            border-radius: 12px;
+            padding: 1.2rem 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(255,255,255,0.03);
+        }
+        .upi-app-btn:hover {
+            border-color: var(--clr-accent);
+        }
+        .upi-app-btn.active {
+            border-color: var(--clr-accent);
+            background: rgba(212, 175, 55, 0.12);
+            box-shadow: 0 0 0 1px var(--clr-accent);
+        }
+        .upi-app-btn .upi-app-logo {
+            width: 100%;
+            max-width: 110px;
+            height: 36px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto 0.6rem;
+            border-radius: 6px;
+        }
+        .upi-app-btn span {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .upi-divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            color: var(--clr-text-muted);
+            font-size: 0.85rem;
+        }
+        .upi-divider::before,
+        .upi-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--clr-border);
+        }
+
+        /* Net Banking */
+        .bank-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .bank-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.2rem;
+            border: 1px solid var(--clr-border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(255,255,255,0.03);
+        }
+        .bank-option:hover {
+            border-color: var(--clr-accent);
+        }
+        .bank-option.active {
+            border-color: var(--clr-accent);
+            background: rgba(212, 175, 55, 0.12);
+        }
+        .bank-option input {
+            accent-color: var(--clr-accent);
+            width: 18px;
+            height: 18px;
+        }
+        .bank-option label {
+            cursor: pointer;
+            font-weight: 500;
+            flex: 1;
+        }
+        .bank-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--clr-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--clr-accent);
+        }
+
         /* Payment Tabs */
         .payment-methods {
             margin-top: 3rem;
@@ -212,19 +342,74 @@
             to { transform: scale(1.1); opacity: 1; }
         }
 
+        /* Payment Success Modal */
+        .payment-success-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .payment-success-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .payment-success-box {
+            background: var(--clr-bg);
+            border: 1px solid var(--clr-border);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.4s ease;
+            box-shadow: var(--shadow-glass);
+        }
+        .payment-success-modal.active .payment-success-box {
+            transform: scale(1);
+        }
+        .success-icon {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--clr-success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+        }
+        .payment-success-box h2 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .payment-success-box p {
+            color: var(--clr-text-muted);
+            margin-bottom: 2rem;
+        }
+
         @media (max-width: 992px) {
             .checkout-layout { grid-template-columns: 1fr; }
             .order-summary-sidebar { position: static; order: -1; }
         }
         @media (max-width: 576px) {
             .address-grid { grid-template-columns: 1fr; }
+            .upi-apps { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <div class="checkout-section">
         <div class="container">
-            <header class="checkout-header reveal">
+            <header class="checkout-header">
                 <a href="index.html" class="logo">Cloth<span>.</span></a>
                 <p class="text-muted mt-1"><i class="ph ph-lock-key"></i> Secure 256-bit Encrypted Checkout</p>
             </header>
@@ -232,39 +417,40 @@
             <div class="checkout-layout">
                 
                 <!-- Left Column: Forms -->
-                <div class="checkout-panel reveal-left">
-                    <form id="checkout-form" onsubmit="event.preventDefault(); processPayment();">
+                <div class="checkout-panel">
+                    <form id="checkout-form">
                         <!-- Address -->
                         <h3 class="panel-title"><i class="ph ph-map-pin"></i> Shipping Address</h3>
                         <div class="address-grid">
-                            <div class="form-group full-width">
-                                <input type="text" class="form-input" id="c-name" placeholder=" " required>
-                                <label class="form-label">Full Name</label>
+                            <div class="form-group static-label full-width">
+                                <label class="field-label" for="c-name">Full Name</label>
+                                <input type="text" class="form-input" id="c-name" placeholder="Enter your full name" required>
                             </div>
-                            <div class="form-group full-width">
-                                <input type="email" class="form-input" id="c-email" placeholder=" " required>
-                                <label class="form-label">Email Address</label>
+                            <div class="form-group static-label full-width">
+                                <label class="field-label" for="c-email">Email Address</label>
+                                <input type="email" class="form-input" id="c-email" placeholder="Enter your email" required>
                             </div>
-                            <div class="form-group full-width">
-                                <input type="text" class="form-input" id="c-address" placeholder=" " required>
-                                <label class="form-label">Street Address</label>
+                            <div class="form-group static-label full-width">
+                                <label class="field-label" for="c-address">Street Address</label>
+                                <input type="text" class="form-input" id="c-address" placeholder="Enter street address" required>
                             </div>
-                            <div class="form-group">
-                                <input type="text" class="form-input" id="c-city" placeholder=" " required>
-                                <label class="form-label">City</label>
+                            <div class="form-group static-label">
+                                <label class="field-label" for="c-city">City</label>
+                                <input type="text" class="form-input" id="c-city" placeholder="Enter city" required>
                             </div>
-                            <div class="form-group">
-                                <input type="text" class="form-input" id="c-zip" placeholder=" " required>
-                                <label class="form-label">ZIP / Postal Code</label>
+                            <div class="form-group static-label">
+                                <label class="field-label" for="c-zip">ZIP / Postal Code</label>
+                                <input type="text" class="form-input" id="c-zip" name="postal-code" autocomplete="postal-code" inputmode="numeric" placeholder="e.g. 110001" required maxlength="10">
+                                <small class="field-hint">Enter your 6-digit PIN or postal code</small>
                             </div>
-                            <div class="form-group full-width">
-                                <select class="form-input" style="padding-top: 1rem; color: var(--clr-text-main);" required>
-                                    <option value="" disabled selected>Select Country</option>
+                            <div class="form-group static-label full-width">
+                                <label class="field-label" for="c-country">Country</label>
+                                <select class="form-input" id="c-country" style="color: var(--clr-text-main);" required>
+                                    <option value="IN" selected>India</option>
                                     <option value="US">United States</option>
                                     <option value="UK">United Kingdom</option>
                                     <option value="CA">Canada</option>
                                     <option value="AU">Australia</option>
-                                    <option value="IN">India</option>
                                 </select>
                             </div>
                         </div>
@@ -274,9 +460,9 @@
                             <h3 class="panel-title"><i class="ph ph-credit-card"></i> Payment Method</h3>
                             
                             <div class="payment-tabs">
-                                <button type="button" class="tab-btn active" onclick="switchTab('card')">Credit/Debit</button>
-                                <button type="button" class="tab-btn" onclick="switchTab('upi')">UPI</button>
-                                <button type="button" class="tab-btn" onclick="switchTab('netbank')">Net Banking</button>
+                                <button type="button" class="tab-btn active" onclick="switchTab('card', event)">Credit/Debit</button>
+                                <button type="button" class="tab-btn" onclick="switchTab('upi', event)">UPI</button>
+                                <button type="button" class="tab-btn" onclick="switchTab('netbank', event)">Net Banking</button>
                             </div>
 
                             <!-- Card Tab -->
@@ -311,24 +497,60 @@
 
                             <!-- UPI Tab -->
                             <div id="tab-upi" class="tab-content">
-                                <p class="text-muted mb-2">Enter your UPI ID to receive a payment request on your UPI app.</p>
-                                <div class="form-group">
-                                    <input type="text" class="form-input" id="upi-id" placeholder=" " >
-                                    <label class="form-label">UPI ID (e.g. name@bank)</label>
+                                <p class="text-muted mb-2">Choose a UPI app or pay using your UPI ID.</p>
+
+                                <div class="upi-apps">
+                                    <button type="button" class="upi-app-btn phonepe" data-upi-app="phonepe">
+                                        <img src="images/upi-phonepe.svg" alt="PhonePe" class="upi-app-logo">
+                                        <span>PhonePe</span>
+                                    </button>
+                                    <button type="button" class="upi-app-btn gpay" data-upi-app="gpay">
+                                        <img src="images/upi-gpay.svg" alt="Google Pay" class="upi-app-logo">
+                                        <span>Google Pay</span>
+                                    </button>
+                                    <button type="button" class="upi-app-btn paytm" data-upi-app="paytm">
+                                        <img src="images/upi-paytm.svg" alt="Paytm" class="upi-app-logo">
+                                        <span>Paytm</span>
+                                    </button>
+                                </div>
+
+                                <div class="upi-divider">OR pay by UPI ID</div>
+
+                                <div class="form-group static-label">
+                                    <label class="field-label" for="upi-id">UPI ID</label>
+                                    <input type="text" class="form-input" id="upi-id" placeholder="e.g. yourname@paytm">
                                 </div>
                             </div>
 
                             <!-- Net Banking Tab -->
                             <div id="tab-netbank" class="tab-content">
-                                <p class="text-muted mb-2">Select your bank from the list to proceed to their secure portal.</p>
-                                <div class="form-group">
-                                    <select class="form-input" style="color: var(--clr-text-main);">
-                                        <option value="" disabled selected>Select Bank</option>
-                                        <option value="chase">Chase Bank</option>
-                                        <option value="boa">Bank of America</option>
-                                        <option value="hdfc">HDFC Bank</option>
-                                        <option value="sbi">State Bank of India</option>
-                                    </select>
+                                <p class="text-muted mb-2">Select your bank to proceed to secure net banking.</p>
+                                <div class="bank-list">
+                                    <div class="bank-option active">
+                                        <input type="radio" name="netbank" id="bank-hdfc" value="hdfc" checked>
+                                        <div class="bank-icon"><i class="ph ph-bank"></i></div>
+                                        <label for="bank-hdfc">HDFC Bank</label>
+                                    </div>
+                                    <div class="bank-option">
+                                        <input type="radio" name="netbank" id="bank-sbi" value="sbi">
+                                        <div class="bank-icon"><i class="ph ph-bank"></i></div>
+                                        <label for="bank-sbi">State Bank of India</label>
+                                    </div>
+                                    <div class="bank-option">
+                                        <input type="radio" name="netbank" id="bank-icici" value="icici">
+                                        <div class="bank-icon"><i class="ph ph-bank"></i></div>
+                                        <label for="bank-icici">ICICI Bank</label>
+                                    </div>
+                                    <div class="bank-option">
+                                        <input type="radio" name="netbank" id="bank-axis" value="axis">
+                                        <div class="bank-icon"><i class="ph ph-bank"></i></div>
+                                        <label for="bank-axis">Axis Bank</label>
+                                    </div>
+                                    <div class="bank-option">
+                                        <input type="radio" name="netbank" id="bank-kotak" value="kotak">
+                                        <div class="bank-icon"><i class="ph ph-bank"></i></div>
+                                        <label for="bank-kotak">Kotak Mahindra Bank</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -340,7 +562,7 @@
                 </div>
 
                 <!-- Right Column: Summary -->
-                <div class="order-summary-sidebar checkout-panel reveal-right">
+                <div class="order-summary-sidebar checkout-panel">
                     <h3 class="panel-title"><i class="ph ph-bag"></i> Order Summary</h3>
                     
                     <div id="checkout-items" style="max-height: 300px; overflow-y: auto; margin-bottom: 1.5rem; padding-right: 10px;">
@@ -381,6 +603,17 @@
         </div>
     </div>
 
+    <!-- Payment Success Popup -->
+    <div id="payment-success-modal" class="payment-success-modal">
+        <div class="payment-success-box">
+            <div class="success-icon"><i class="ph ph-check-circle"></i></div>
+            <h2>Payment Done!</h2>
+            <p>Your dummy payment was successful. Thank you for your order.</p>
+            <button type="button" class="btn btn-accent full-width" id="success-ok-btn">OK</button>
+        </div>
+    </div>
+
+    <script src="js/products.js"></script>
     <script src="js/store.js"></script>
     <script src="js/payment.js"></script>
 </body>

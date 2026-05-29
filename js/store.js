@@ -3,7 +3,38 @@
 // Manage Cart
 const CartStore = {
     getCart() {
-        return JSON.parse(localStorage.getItem('cloth_cart')) || [];
+        try {
+            return JSON.parse(localStorage.getItem('cloth_cart')) || [];
+        } catch {
+            return [];
+        }
+    },
+    syncFromCatalog() {
+        if (typeof getProductById !== 'function') return;
+        const cart = this.getCart();
+        let changed = false;
+        cart.forEach(item => {
+            const product = getProductById(item.id);
+            if (product) {
+                if (item.image !== product.image) {
+                    item.image = product.image;
+                    changed = true;
+                }
+                if (item.hoverImage !== product.hoverImage) {
+                    item.hoverImage = product.hoverImage;
+                    changed = true;
+                }
+                if (item.price !== product.price) {
+                    item.price = product.price;
+                    changed = true;
+                }
+                if (item.name !== product.name) {
+                    item.name = product.name;
+                    changed = true;
+                }
+            }
+        });
+        if (changed) this.saveCart(cart);
     },
     saveCart(cart) {
         localStorage.setItem('cloth_cart', JSON.stringify(cart));
@@ -167,7 +198,7 @@ function showToast(message, type = 'success') {
 document.addEventListener('click', (e) => {
     // Add to cart
     const addToCartBtn = e.target.closest('.add-to-cart-btn');
-    if (addToCartBtn) {
+    if (addToCartBtn && typeof getProductById === 'function') {
         const id = addToCartBtn.dataset.id;
         const product = getProductById(id);
         if (product) CartStore.addItem(product);
@@ -175,7 +206,7 @@ document.addEventListener('click', (e) => {
 
     // Toggle Wishlist
     const wishlistBtn = e.target.closest('.wishlist-btn');
-    if (wishlistBtn) {
+    if (wishlistBtn && typeof getProductById === 'function') {
         const id = wishlistBtn.dataset.id;
         const product = getProductById(id);
         if (product) {

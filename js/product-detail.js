@@ -156,4 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
             relatedGrid.innerHTML = fallback.map(p => generateProductCard(p)).join('');
         }
     }
+
+    if (typeof initScrollReveal === 'function') initScrollReveal();
 });

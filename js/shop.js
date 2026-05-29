@@ -21,6 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const renderProducts = (prods) => {
+        const countEl = document.getElementById('product-count');
+        if (countEl) {
+            const selectedCategory = document.querySelector('input[name="category"]:checked')?.value || 'all';
+            const label = selectedCategory === 'all' ? 'all products' : selectedCategory.toLowerCase();
+            countEl.textContent = `Showing ${prods.length} ${label}`;
+        }
+
         if (prods.length === 0) {
             shopGrid.innerHTML = '<div class="no-results">No products found matching your criteria.</div>';
             return;

@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const SHIPPING_COST = 25;
 
     const renderCart = () => {
+        if (typeof CartStore.syncFromCatalog === 'function') {
+            CartStore.syncFromCatalog();
+        }
         const cart = CartStore.getCart();
 
         if (cart.length === 0) {
@@ -29,11 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const total = subtotal + shipping;
 
         // Render Items
-        let itemsHtml = '<div class="cart-items-container reveal-left">';
+        let itemsHtml = '<div class="cart-items-container">';
         cart.forEach(item => {
             itemsHtml += `
                 <div class="cart-item">
-                    <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-img" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=500&q=80'">
                     <div class="cart-item-info">
                         <a href="product.html?id=${item.id}" class="cart-item-title">${item.name}</a>
                         <span class="cart-item-price">$${item.price}</span>
@@ -53,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Render Summary
         const summaryHtml = `
-            <div class="order-summary reveal-right">
+            <div class="order-summary">
                 <h3 class="summary-title">Order Summary</h3>
                 <div class="summary-row">
                     <span>Subtotal</span>
@@ -80,9 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 
         cartLayout.innerHTML = itemsHtml + summaryHtml;
-        
-        // Re-trigger animations
-        if(typeof initScrollReveal === 'function') initScrollReveal();
     };
 
     window.changeQty = (id, change) => {

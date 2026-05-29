@@ -11,9 +11,32 @@
     <link rel="stylesheet" href="css/components.css">
     <style>
         .shop-header {
-            padding: calc(var(--space-xl) + 80px) 0 var(--space-lg);
+            position: relative;
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            background: linear-gradient(to bottom, var(--clr-surface), var(--clr-bg));
+            overflow: hidden;
+            padding: calc(var(--space-xl) + 80px) 0 var(--space-lg);
+        }
+        .shop-header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.55);
+            z-index: 1;
+        }
+        .shop-header-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        .shop-header .container {
+            position: relative;
+            z-index: 2;
         }
         
         .shop-layout {
@@ -70,9 +93,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid var(--clr-border);
+        }
+        .product-count {
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
         }
         .search-box {
             position: relative;
@@ -178,6 +205,7 @@
 
     <!-- Header -->
     <header class="shop-header">
+        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1920&q=80" alt="Luxury Fashion Collection" class="shop-header-bg" loading="eager">
         <div class="container reveal">
             <h1 class="title-serif mb-1">The Collection</h1>
             <p class="text-muted">Explore our latest arrivals and timeless classics.</p>
@@ -193,7 +221,7 @@
                 <div class="filter-group">
                     <h3 class="filter-title">Categories</h3>
                     <div class="filter-list">
-                        <label><input type="radio" name="category" value="all" checked> All</label>
+                        <label><input type="radio" name="category" value="all" checked> All Products</label>
                         <label><input type="radio" name="category" value="Dresses"> Dresses</label>
                         <label><input type="radio" name="category" value="Outerwear"> Outerwear</label>
                         <label><input type="radio" name="category" value="Tops"> Tops</label>
@@ -228,6 +256,8 @@
                         </select>
                     </div>
                 </div>
+
+                <p id="product-count" class="product-count text-muted"></p>
 
                 <div id="shop-grid" class="products-grid">
                     <!-- Products will be injected here -->
